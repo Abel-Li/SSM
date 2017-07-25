@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqg.dao.UserDao">
+
+	<sql id="table"> hqg_user </sql>
+
+	<resultMap id="beanMap" type="User">
+		<id column="id" property="id" />
+		<result column="userName" property="userName" />
+		<result column="pwd" property="pwd" />
+		<result column="mobileNo" property="mobileNo" />
+		<result column="realName" property="realName" />
+		<result column="sex" property="sex" />
+		<result column="cardId" property="cardId" />
+	</resultMap>
+	
+	<insert id="addUser" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+		insert into
+		<include refid="table" />
+		(userName, pwd, mobileNo, realName, sex, cardId)
+		values (#{userName}, #{pwd}, #{mobileNo}, #{realName}, #{sex}, #{cardId})
+	</insert>
+	
+	<select id="getUserId" parameterType="String" resultMap="beanMap">
+		select * from <include refid="table" /> where id=#{id}
+	</select>
+	
+	
+</mapper>
